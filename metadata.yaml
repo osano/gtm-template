@@ -1,3 +1,5 @@
 homepage: "https://www.osano.com"
 documentation: "https://docs.osano.com/osano-and-google-tag-manager"
 versions:
+  - sha: 5183fada09907adbe0c977fc89e937e89994749b
+    changeNotes: Initial Version
