@@ -86,6 +86,7 @@ const callInWindow = require('callInWindow');
 const createQueue = require('createQueue');
 const getCookieValues = require('getCookieValues');
 const getUrl = require('getUrl');
+const gtagSet = require('gtagSet');
 const injectScript = require('injectScript');
 const log = require('logToConsole');
 const JSON = require('JSON');
@@ -126,11 +127,13 @@ const interpretConsent = osanoConsent => {
     return consent;
 };
 
+/* prettier-ignore */
 (function () {
     const defaultConsent = interpretConsent(DEFAULT_CONSENT);
     defaultConsent.wait_for_update = 500;
     setDefaultConsentState(defaultConsent);
-}()); // eslint-disable-line prettier/prettier
+}());
+/* prettier-ignore-end */
 
 const decrypt=(e,r)=>{const t=e.toString().trim();if(0===t.length)return"";const n=require("decodeUriComponent"),o=require("encodeUriComponent"),f=require("Math"),l={0:48,1:49,2:50,3:51,4:52,5:53,6:54,7:55,8:56,9:57," ":32,"!":33,'"':34,"#":35,"$":36,"%":37,"&":38,"'":39,"(":40,")":41,"*":42,"+":43,",":44,"-":45,".":46,"/":47,":":58,";":59,"<":60,"=":61,">":62,"?":63,"@":64,A:65,B:66,C:67,D:68,E:69,F:70,G:71,H:72,I:73,J:74,K:75,L:76,M:77,N:78,O:79,P:80,Q:81,R:82,S:83,T:84,U:85,V:86,W:87,X:88,Y:89,Z:90,"[":91,"\\":92,"]":93,"^":94,_:95,"`":96,a:97,b:98,c:99,d:100,e:101,f:102,g:103,h:104,i:105,j:106,k:107,l:108,m:109,n:110,o:111,p:112,q:113,r:114,s:115,t:116,u:117,v:118,w:119,x:120,y:121,z:122,"{":123,"|":124,"}":125,"~":126},i={32:" ",33:"!",34:'"',35:"#",36:"$",37:"%",38:"&",39:"'",40:"(",41:")",42:"*",43:"+",44:",",45:"-",46:".",47:"/",48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:"9",58:":",59:";",60:"<",61:"=",62:">",63:"?",64:"@",65:"A",66:"B",67:"C",68:"D",69:"E",70:"F",71:"G",72:"H",73:"I",74:"J",75:"K",76:"L",77:"M",78:"N",79:"O",80:"P",81:"Q",82:"R",83:"S",84:"T",85:"U",86:"V",87:"W",88:"X",89:"Y",90:"Z",91:"[",92:"\\",93:"]",94:"^",95:"_",96:"`",97:"a",98:"b",99:"c",100:"d",101:"e",102:"f",103:"g",104:"h",105:"i",106:"j",107:"k",108:"l",109:"m",110:"n",111:"o",112:"p",113:"q",114:"r",115:"s",116:"t",117:"u",118:"v",119:"w",120:"x",121:"y",122:"z",123:"{",124:"|",125:"}",126:"~"},p={0:52,1:53,2:54,3:55,4:56,5:57,6:58,7:59,8:60,9:61,A:0,B:1,C:2,D:3,E:4,F:5,G:6,H:7,I:8,J:9,K:10,L:11,M:12,N:13,O:14,P:15,Q:16,R:17,S:18,T:19,U:20,V:21,W:22,X:23,Y:24,Z:25,a:26,b:27,c:28,d:29,e:30,f:31,g:32,h:33,i:34,j:35,k:36,l:37,m:38,n:39,o:40,p:41,q:42,r:43,s:44,t:45,u:46,v:47,w:48,x:49,y:50,z:51,"+":62,"/":63};e=r=>{const t=[];for(let e=0;e<r.length;e+=4)t.push(r[e+3]<<24|r[e+2]<<16|r[e+1]<<8|r[e]);return t;},e=(r=>{let t="";for(let e=0;e<r.length;e++){var n=r[e];t+=[255&n,n>>>8&255,n>>>16&255,n>>>24&255].reduce((e,r)=>e+(i[r]||""),"");}return t;})(((r,t)=>{var n=r.length,e=2654435769,o=f.floor(6+52/n);let l,i=r[0],p,u,s=o*e;for(;0!==s;){u=s>>>2&3;for(let e=n-1;0<=e;e--){p=((l=r[0<e?e-1:n-1])>>>5^i<<2)+(i>>>3^l<<4)^(s^i)+(t[3&e^u]^l);i=r[e]=r[e]-p;}s=s-e;}return r;})(e((r=>{const t=[];for(let e=0;e<r.length;e+=4){var n=p[r[e]]<<18|p[r[e+1]]<<12|p[r[e+2]]<<6|p[r[e+3]];t.push(n>>16&255);t.push(n>>8&255);t.push(255&n);}var e=r.substring(r.length-2);if("="===e[1])t.pop();if("="===e[0])t.pop();return t;})(t.split("-").join("+").split("_").join("/"))),e(r.toString().slice(0,16).split("").map(e=>l[e]))));return n((e=>{var r=[["~","%7E"],["'","%27"],["!","%21"],["(","%28"],[")","%29"],["%2F","/"],["%2B","+"],["%40","@"]];let t=o(e);for(let e=0;e<r.length;)if(-1===(t=t.replace(r[e][0],r[e][1])).indexOf(r[e][0]))e++;return t;})(e));};
 
@@ -165,6 +168,7 @@ if (queryPermission('get_cookies', COOKIE_NAME) && queryPermission('get_url', 'h
     log('No Cookie Permissions');
 }
 
+gtagSet('developerId.dMzRlOT', true);
 const dataLayerPush = createQueue('dataLayer');
 
 const ccId = data.ccId || '';
@@ -622,6 +626,32 @@ ___WEB_PERMISSIONS___
       "isEditedByUser": true
     },
     "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "write_data_layer",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "keyPatterns",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 1,
+                "string": "developerId.dMzRlOT"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
   }
 ]
 
@@ -679,6 +709,6 @@ scenarios:
 
 ___NOTES___
 
-Created on 5/18/2022, 4:31:57 PM
+Created on 6/3/2022, 4:45:26 PM
 
 
