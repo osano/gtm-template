@@ -1,6 +1,8 @@
 homepage: "https://www.osano.com"
 documentation: "https://docs.osano.com/osano-and-google-tag-manager"
 versions:
+  - sha: c4f51d7c71574284c1ec4ab6862e7001f00fc18a
+    changeNotes: Add copyright year and owner to license file
   - sha: faf5a17fc91668db5d5e24f9bc15f8428247e6b3
     changeNotes: Send our developer ID to gtag
   - sha: 5183fada09907adbe0c977fc89e937e89994749b
