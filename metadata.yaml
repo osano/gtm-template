@@ -1,6 +1,8 @@
 homepage: "https://www.osano.com"
 documentation: "https://docs.osano.com/osano-and-google-tag-manager"
 versions:
+  - sha: 7ce90bb8c6f2b81ed3ad7c687258effa03476af0
+    changeNotes: Add ad_user_data and ad_personalization categories
   - sha: c4f51d7c71574284c1ec4ab6862e7001f00fc18a
     changeNotes: Add copyright year and owner to license file
   - sha: faf5a17fc91668db5d5e24f9bc15f8428247e6b3
