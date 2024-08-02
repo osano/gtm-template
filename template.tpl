@@ -168,7 +168,7 @@ if (queryPermission('get_cookies', COOKIE_NAME) && queryPermission('get_url', 'h
     log('No Cookie Permissions');
 }
 
-gtagSet('developerId.dMzRlOT', true);
+gtagSet('developer_id.dMzRlOT', true);
 const dataLayerPush = createQueue('dataLayer');
 
 const ccId = data.ccId || '';
@@ -703,7 +703,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "developerId.dMzRlOT"
+                "string": "developer_id.dMzRlOT"
               }
             ]
           }
