@@ -67,6 +67,191 @@ ___TEMPLATE_PARAMETERS___
       }
     ],
     "valueHint": "abcd1234-ab12-cd34-ef56-abcdef123456"
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "regionalConsentDefaults",
+    "displayName": "Regional Consent Mode Defaults",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "region",
+          "displayName": "Region Code(s)",
+          "simpleValueType": true,
+          "help": "A list of two-character country codes, separated by commas, optionally also including the two-character province code separated by a hyphen",
+          "valueHint": "Ex: mx, us-tx",
+          "valueValidators": [
+            {
+              "type": "NON_EMPTY"
+            },
+            {
+              "type": "REGEX",
+              "args": [
+                "^[a-zA-Z]{2}(-[a-zA-Z]{2})?(,\\s*[a-zA-Z]{2}(-[a-zA-Z]{2})?)*$"
+              ],
+              "errorMessage": "Must contain two or four character country codes separated by commas (e.g., \"us-tx, mx\")"
+            }
+          ]
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "ad_storage",
+          "displayName": "ad_storage",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "granted",
+              "displayValue": "On by Default"
+            },
+            {
+              "value": "denied",
+              "displayValue": "Off by Default"
+            }
+          ],
+          "simpleValueType": true,
+          "notSetText": "Not Set",
+          "defaultValue": ""
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "ad_user_data",
+          "displayName": "ad_user_data",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "granted",
+              "displayValue": "On by Default"
+            },
+            {
+              "value": "denied",
+              "displayValue": "Off by Default"
+            }
+          ],
+          "simpleValueType": true,
+          "notSetText": "Not Set",
+          "defaultValue": ""
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "ad_personalization",
+          "displayName": "ad_personalization",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "granted",
+              "displayValue": "On by Default"
+            },
+            {
+              "value": "denied",
+              "displayValue": "Off by Default"
+            }
+          ],
+          "simpleValueType": true,
+          "notSetText": "Not Set",
+          "defaultValue": ""
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "analytics_storage",
+          "displayName": "analytics_storage",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "granted",
+              "displayValue": "On by Default"
+            },
+            {
+              "value": "denied",
+              "displayValue": "Off by Default"
+            }
+          ],
+          "simpleValueType": true,
+          "notSetText": "Not Set",
+          "defaultValue": ""
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "functionality_storage",
+          "displayName": "functionality_storage",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "granted",
+              "displayValue": "On by Default"
+            },
+            {
+              "value": "denied",
+              "displayValue": "Off by Default"
+            }
+          ],
+          "simpleValueType": true,
+          "notSetText": "Not Set",
+          "defaultValue": ""
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "personalization_storage",
+          "displayName": "personalization_storage",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "granted",
+              "displayValue": "On by Default"
+            },
+            {
+              "value": "denied",
+              "displayValue": "Off by Default"
+            }
+          ],
+          "simpleValueType": true,
+          "notSetText": "Not Set",
+          "defaultValue": ""
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "security_storage",
+          "displayName": "security_storage",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "granted",
+              "displayValue": "On by Default"
+            },
+            {
+              "value": "denied",
+              "displayValue": "Off by Default"
+            }
+          ],
+          "simpleValueType": true,
+          "notSetText": "Not Set",
+          "defaultValue": ""
+        },
+        "isUnique": false
+      }
+    ],
+    "newRowButtonText": "Add Regional Consent Default"
   }
 ]
 
@@ -127,11 +312,31 @@ const interpretConsent = osanoConsent => {
     return consent;
 };
 
+const setRegionalDefaultConsents = () => {
+    const regionalConsentDefaults = data.regionalConsentDefaults || [];
+    for (const regionalDefault of regionalConsentDefaults) {
+        const defaultConsent = {};
+        for (const consentCategory in regionalDefault) {
+            if (regionalDefault[consentCategory]) {
+                defaultConsent[consentCategory] = regionalDefault[consentCategory];
+            }
+        }
+
+        defaultConsent.region = regionalDefault.region
+            .split(',')
+            .map(region => region.trim().toUpperCase())
+            .filter(r => !!r);
+
+        setDefaultConsentState(defaultConsent);
+    }
+};
+
 /* prettier-ignore */
 (function () {
     const defaultConsent = interpretConsent(DEFAULT_CONSENT);
     defaultConsent.wait_for_update = 500;
     setDefaultConsentState(defaultConsent);
+    setRegionalDefaultConsents();
 }());
 /* prettier-ignore-end */
 
@@ -168,7 +373,7 @@ if (queryPermission('get_cookies', COOKIE_NAME) && queryPermission('get_url', 'h
     log('No Cookie Permissions');
 }
 
-gtagSet('developerId.dMzRlOT', true);
+gtagSet('developer_id.dMzRlOT', true);
 const dataLayerPush = createQueue('dataLayer');
 
 const ccId = data.ccId || '';
@@ -703,7 +908,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "developerId.dMzRlOT"
+                "string": "developer_id.dMzRlOT"
               }
             ]
           }
@@ -768,10 +973,52 @@ scenarios:
     granted\",\"security_storage\":\"granted\",\"ad_storage\":\"denied\",\"personalization_storage\"\
     :\"granted\",\"analytics_storage\":\"granted\",\"ad_user_data\":\"denied\",\"\
     ad_personalization\":\"denied\"});\n"
+- name: It sets regional defaults
+  code: |-
+    const mockData = {
+      regionalConsentDefaults: [{
+        region: 'us-tx, mx',
+        ad_storage: 'granted',
+        functionality_storage: 'denied'
+      }, {
+        region: 'CA',
+        personalization_storage: 'granted',
+        security_storage: ''
+      }, {
+        region: 'gb, fr, mx',
+        ad_user_data: 'denied',
+      }]
+    };
+
+    runCode(mockData);
+
+    assertApi('setDefaultConsentState').wasCalledWith({
+      functionality_storage: "granted",
+      security_storage: "granted",
+      analytics_storage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      personalization_storage: "denied",
+      wait_for_update: 500
+    });
+    assertApi('setDefaultConsentState').wasCalledWith({
+      region: ['US-TX', 'MX'],
+      ad_storage: 'granted',
+      functionality_storage: 'denied'
+    });
+    assertApi('setDefaultConsentState').wasCalledWith({
+      region: ['CA'],
+      personalization_storage: 'granted'
+    });
+    assertApi('setDefaultConsentState').wasCalledWith({
+      region: ['GB', 'FR', 'MX'],
+      ad_user_data: 'denied',
+    });
 
 
 ___NOTES___
 
-Created on 11/30/2023, 6:13:58 PM
+Created on 8/12/2024, 2:14:43 PM
 
 
