@@ -1,6 +1,8 @@
 homepage: "https://www.osano.com"
 documentation: "https://docs.osano.com/osano-and-google-tag-manager"
 versions:
+  - sha: f1f25754f6bf27474dba0825b2e21586ac0e4e2a
+    changeNotes: Change developer ID casing to snake_case and add support for regional consent default overrides
   - sha: 7ce90bb8c6f2b81ed3ad7c687258effa03476af0
     changeNotes: Add ad_user_data and ad_personalization categories
   - sha: c4f51d7c71574284c1ec4ab6862e7001f00fc18a
