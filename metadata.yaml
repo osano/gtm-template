@@ -11,3 +11,5 @@ versions:
     changeNotes: Send our developer ID to gtag
   - sha: 5183fada09907adbe0c977fc89e937e89994749b
     changeNotes: Initial Version
+  - sha: e7f13196568547daa4cada750bf0ff886a9bdac2
+    changeNotes: Update minimum and maximum length of Customer ID field
