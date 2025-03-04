@@ -32,27 +32,6 @@ ___TEMPLATE_PARAMETERS___
 [
   {
     "type": "TEXT",
-    "name": "customerId",
-    "displayName": "Customer ID",
-    "simpleValueType": true,
-    "help": "Your Osano customer ID. In your Consent Management configuration, click the Get Code button. This is the value between the slashes right after \"cmp.osano.com\".",
-    "valueHint": "aBcDxYz1234567890",
-    "alwaysInSummary": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      },
-      {
-        "type": "STRING_LENGTH",
-        "args": [
-          15,
-          25
-        ]
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "ccId",
     "displayName": "Customer Configuration ID",
     "simpleValueType": true,
@@ -252,6 +231,27 @@ ___TEMPLATE_PARAMETERS___
       }
     ],
     "newRowButtonText": "Add Regional Consent Default"
+  },
+  {
+    "type": "TEXT",
+    "name": "customerId",
+    "displayName": "Customer ID",
+    "simpleValueType": true,
+    "help": "Your Osano customer ID. In your Consent Management configuration, click the Get Code button. This is the value between the slashes right after \"cmp.osano.com\".",
+    "valueHint": "aBcDxYz1234567890",
+    "alwaysInSummary": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      },
+      {
+        "type": "STRING_LENGTH",
+        "args": [
+          9,
+          50
+        ]
+      }
+    ]
   }
 ]
 
