@@ -1,6 +1,8 @@
 homepage: "https://www.osano.com"
 documentation: "https://docs.osano.com/osano-and-google-tag-manager"
 versions:
+  - sha: e7f13196568547daa4cada750bf0ff886a9bdac2
+    changeNotes: Update minimum and maximum length of Customer ID field
   - sha: f1f25754f6bf27474dba0825b2e21586ac0e4e2a
     changeNotes: Change developer ID casing to snake_case and add support for regional consent default overrides
   - sha: 7ce90bb8c6f2b81ed3ad7c687258effa03476af0
@@ -11,5 +13,3 @@ versions:
     changeNotes: Send our developer ID to gtag
   - sha: 5183fada09907adbe0c977fc89e937e89994749b
     changeNotes: Initial Version
-  - sha: e7f13196568547daa4cada750bf0ff886a9bdac2
-    changeNotes: Update minimum and maximum length of Customer ID field
